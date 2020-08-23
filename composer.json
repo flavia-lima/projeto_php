@@ -1,6 +1,6 @@
 {
 	"name": "flavia-lima/projeto_php",
-	"autors": [
+	"authors": [
 		{
 			"name": "Flavia Lima",
 			"email": "flavia.mabali@gmail.com"
@@ -13,7 +13,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"": "vendor\\flavia-lima\\php-classes\\src"
+			"Flavia\\": "vendor\\flavia-lima\\php-classes\\src"
 		}
 	}
 }

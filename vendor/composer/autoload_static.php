@@ -11,6 +11,10 @@ class ComposerStaticInitd342a8c75d020b9ed0cb11e8f1862704
         array (
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+        'F' => 
+        array (
+            'Flavia\\' => 7,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -18,10 +22,10 @@ class ComposerStaticInitd342a8c75d020b9ed0cb11e8f1862704
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
-    );
-
-    public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/..' . '/flavia-lima/php-classes/src',
+        'Flavia\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/flavia-lima/php-classes/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -46,7 +50,6 @@ class ComposerStaticInitd342a8c75d020b9ed0cb11e8f1862704
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitd342a8c75d020b9ed0cb11e8f1862704::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitd342a8c75d020b9ed0cb11e8f1862704::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInitd342a8c75d020b9ed0cb11e8f1862704::$fallbackDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInitd342a8c75d020b9ed0cb11e8f1862704::$prefixesPsr0;
 
         }, null, ClassLoader::class);

@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `tb_users` (
   `id_person` INT(11) NOT NULL,
   `des_login` VARCHAR(64) NOT NULL,
   `des_password` VARCHAR(256) NOT NULL,
-  `role` TINYINT(4) NOT NULL DEFAULT '0',
+  `inadmin` TINYINT(4) NOT NULL DEFAULT '0',
   `dt_register` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`),
   CONSTRAINT `fk_users_persons`

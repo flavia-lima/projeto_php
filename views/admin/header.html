@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>AdminLTE 3 | Starter</title>
+  <title>Admin - Geek Store</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="/resources/admin/plugins/fontawesome-free/css/all.min.css">
@@ -139,6 +139,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
             class="fas fa-th-large"></i></a>
       </li>
+      <!-- Menu Footer-->
+      <li class="user-footer">
+        <div class="pull-right">
+            <a href="/admin/logout" class="btn btn-default btn-flat">Sair</a>
+        </div>
+      </li>
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -149,7 +155,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <a href="index3.html" class="brand-link">
       <img src="/resources/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Admin - Geek Store</span>
     </a>
 
     <!-- Sidebar -->
@@ -193,10 +199,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
           <li class="nav-item">
+            <a href="/admin/users" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>Usuários</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Simple Link
+                Simple Link 2
+                <span class="right badge badge-danger">New</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Simple Link 3
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>

@@ -98,29 +98,81 @@ class User extends Model{
 		 
 		$this->setData($data);
  
- }
+ 	}
 
- public function save()
- {
+	/* public static function getPasswordHash($password)
+	{
 
- 	$sql = new Sql();
+			return password_hash($password, PASSWORD_DEFAULT, [
+				'cost'=>12
+			]);
 
- 	$results = $sql->select("CALL sp_users_save(:des_person, :des_login, :des_password, :email, :phone, :cpf, :inadmin)", array(
+		}*/
 
- 		":des_person"=>$this->getdes_person(),
- 		":des_login"=>$this->getdes_login(),
- 		":des_password" => password_hash($this->getdes_password (), PASSWORD_DEFAULT, [
-		'cont' => 12
-	]),
- 		":email"=>$this->getemail(),
- 		":phone"=>$this->getphone(),
- 		":cpf"=>$this->getcpf(),
- 		":inadmin"=>$this->getinadmin()
- 	));
+	public function save()
+	{
 
- 	$this->setData($results[0]); //traz somente o primeiro registro
+	 	$sql = new Sql();
 
- }
+	 	$results = $sql->select("CALL sp_users_save(:des_person, :des_login, :des_password, :email, :phone, :cpf, :inadmin)", array(
+
+	 		":des_person"=>$this->getdes_person(),
+	 		":des_login"=>$this->getdes_login(),
+	 		":des_password"=>$this->getdes_password(),
+	 		/*":des_password" => password_hash($this->getdes_password (), PASSWORD_DEFAULT, ['cont' => 12]),*/
+	 		":email"=>$this->getemail(),
+	 		":phone"=>$this->getphone(),
+	 		":cpf"=>$this->getcpf(),
+	 		":inadmin"=>$this->getinadmin()
+	 	));
+
+ 		$this->setData($results[0]); //deve trazer somente o primeiro registro
+
+	}
+
+	/*public function get($id_user)
+	{
+
+	 	$sql = new Sql();
+
+	 	$results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING(id_person) WHERE a.id_user = :id_user", array(
+	 			":id_user"=>$id_user
+	 	));
+
+	 	$this->setData($results[0]);
+
+	}*/
+
+	public function update()
+	{
+
+		$sql = new Sql();
+
+	 	$results = $sql->select("CALL sp_usersupdate_save(:id_user, :des_person, :des_login, :des_password, :email, :phone, :cpf, :inadmin)", array(
+	 		":id_user"=>$this->getid_user(),
+	 		":des_person"=>$this->getdes_person(),
+	 		":des_login"=>$this->getdes_login(),
+	 		":des_password"=>$this->getdes_password(),
+	 		":email"=>$this->getemail(),
+	 		":phone"=>$this->getphone(),
+	 		":cpf"=>$this->getcpf(),
+	 		":inadmin"=>$this->getinadmin()
+	 	));
+
+ 		$this->setData($results[0]);
+
+	}
+
+	public function delete()
+	{
+
+		$sql = new Sql();
+
+		$sql->query("CALL sp_users_delete(:id_user)", array(
+			":id_user"=>$this->getid_user()
+		));
+
+	}
 
 }
 //$2y$12$hKaYkmysAUxuw4gYLdTL3eyB7eVzwt4.mK4gGCQUYMD0X/YNzINrG

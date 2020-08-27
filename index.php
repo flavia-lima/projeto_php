@@ -91,6 +91,15 @@ $app->get("/admin/users/:id_user/delete", function($id_user) {
 
 	User::verifyLogin();
 
+	$user = new User();
+
+	$user->get((int)$id_user);
+
+	$user->delete();
+
+	header("Location: /admin/users");
+ 	exit;
+
 });
 
 $app->get('/admin/users/:id_user', function($id_user){
@@ -153,6 +162,19 @@ $app->post("/admin/users/create", function () {
 $app->post("/admin/users/:id_user", function($id_user) {
 
 	User::verifyLogin();
+
+	$user = new User();
+
+	$_POST["inadmin"] = (isset($_POST["inadmin"])) ? 1 : 0;
+
+	$user->get((int)$id_user);
+
+	$user->setData($_POST);
+
+	$user->update();
+
+	header("Location: /admin/users");
+ 	exit;
 
 });
 

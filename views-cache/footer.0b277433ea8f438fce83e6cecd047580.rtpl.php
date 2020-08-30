@@ -54,9 +54,12 @@
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 
         <!-- Links -->
-        <h6 class="text-uppercase font-weight-bold">Produtos</h6>
+        <h6 class="text-uppercase font-weight-bold">Categorias</h6>
         <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-        <p>
+        <ul>
+          <?php require $this->checkTemplate("categories-menu");?>
+        </ul>
+        <!--<p>
           <a href="#!">Games</a>
         </p>
         <p>
@@ -70,7 +73,7 @@
         </p>
         <p>
           <a href="#!">Acessórios</a>
-        </p>
+        </p> -->
 
       </div>
       <!-- Grid column -->

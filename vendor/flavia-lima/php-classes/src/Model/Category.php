@@ -30,6 +30,8 @@ class Category extends Model{
 
  		$this->setData($results[0]);
 
+ 		Category::updateFile();
+
 	}
 
 	public function get($id_category)
@@ -54,9 +56,24 @@ class Category extends Model{
 			':id_category'=>$this->getid_category()
 		]);
 
+		Category::updateFile();
+
 	}
 
-	
+	public static function updateFile()
+	{
+
+		$categories = Category::listAll();
+
+		$html = [];
+
+		foreach ($categories as $row) {
+			array_push($html, '<li><a href="/categories/'.$row['id_category'].'">'.$row['des_category'].'</a></li>');
+		}
+
+		file_put_contents($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "categories-menu.html", implode('', $html));
+
+	}
 
 }
 //$2y$12$hKaYkmysAUxuw4gYLdTL3eyB7eVzwt4.mK4gGCQUYMD0X/YNzINrG

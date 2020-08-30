@@ -21,3 +21,21 @@ body,
 /* Footer color for sake of consistency with Navbar */
 .page-footer {
   background-color: #929FBA; }
+
+
+/*Category - ver se está funcionando*/
+.product-big-title-area {background-color: #6a1b9a; repeat scroll 0 0 #e67e22}
+
+.product-bit-title h2 {
+  font-family: verdana;
+  font-size: 30px;
+  font-weight: 200;
+  margin: 0;
+  padding: 50px 0;color: #fff;
+}
+
+/*.single-product-area .zigzag-bottom {background-color: #f4f4f4}
+
+.single-product-area {
+  padding: 80px 0 130px;
+}*/

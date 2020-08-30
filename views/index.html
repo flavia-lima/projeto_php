@@ -14,7 +14,7 @@
       <!--Mask color-->
       <div class="view">
         <!--Image source-->
-        <img src="/resources/site/img/red1.gif" alt="" width="100%">
+        <img src="/resources/site/img/red1.gif" alt="" width="100%" height="100%">
         <div class="mask rgba-black-strong"></div>
       </div>
 
@@ -34,7 +34,7 @@
       <!--Mask color-->
       <div class="view">
         <!--Image source-->
-        <img src="/resources/site/img/tlou3.gif" alt="" width="100%">
+        <img src="/resources/site/img/tlou3.gif" alt="" width="100%" height="100%">
         <div class="mask rgba-black-strong"></div>
       </div>
 
@@ -54,7 +54,7 @@
       <!--Mask color-->
       <div class="view">
         <!--Image source-->
-        <img src="/resources/site/img/zero1.gif" alt="" width="100%">
+        <img src="/resources/site/img/zero1.gif" alt="" width="100%" height="100%">
         <div class="mask rgba-black-strong"></div>
       </div>
 

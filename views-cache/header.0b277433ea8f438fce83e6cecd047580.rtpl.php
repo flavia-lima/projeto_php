@@ -16,6 +16,8 @@
   <link href="/resources/site/css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="/resources/site/css/style.min.css" rel="stylesheet">
+
+  <link href="/resources/site/css/style.css" rel="stylesheet">
   <style type="text/css">
     html,
     body,
@@ -54,7 +56,7 @@
     <div class="container">
 
       <!-- Brand -->
-      <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+      <a class="navbar-brand waves-effect" href="http://www.projetophp.com.br/">
         <img src="/resources/site/img/geekstore.png" width="35%" alt="Geek Store" title="Geek Store">
       </a>
 
@@ -70,7 +72,7 @@
         <!-- Left -->
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link waves-effect" href="#">Home
+            <a class="nav-link waves-effect" href="http://www.projetophp.com.br/">Home
             </a>
           </li>
           <li class="nav-item">

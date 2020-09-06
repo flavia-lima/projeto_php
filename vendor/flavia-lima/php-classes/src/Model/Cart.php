@@ -114,6 +114,70 @@ class Cart extends Model{
 
 	}
 
+	//Adiciona o produto na carrinho.
+	public function addProduct(Product $product)
+	{
+
+		$sql = new Sql();
+
+		$sql->query("INSERT INTO tb_carts_products(id_cart, id_product) VALUES(:id_cart, :id_product)", [
+			':id_cart'=>$this->getid_cart(),
+			':id_product'=>$product->getid_product()
+		]);
+
+		//$this->getCalculateTotal();
+
+	}
+
+	//Remove o produto do carrinho. All remove todos os itens do mesmo produto.
+	public function removeProduct(Product $product, $all = false)
+	{
+
+		$sql = new Sql();
+
+		if ($all) {
+
+			$sql->query("UPDATE tb_carts_products SET dt_removed = NOW() WHERE id_cart = :id_cart AND id_product = :id_product AND dt_removed IS NULL", [
+				':id_cart'=>$this->getid_cart(),
+				':id_product'=>$product->getid_product()
+			]);
+
+		} else {
+
+			$sql->query("UPDATE tb_carts_products SET dt_removed = NOW() WHERE id_cart = :id_cart AND id_product = :id_product AND dt_removed IS NULL LIMIT 1", [
+				':id_cart'=>$this->getid_cart(),
+				':id_product'=>$product->getid_product()
+			]);
+
+		}
+
+		//$this->getCalculateTotal();
+
+	}
+
+	//Pega todos o produtos que já estão no carrinho.
+	public function getProducts()
+	{
+
+		$sql = new Sql();
+
+		$rows = $sql->select("
+			SELECT b.id_product, b.des_product , b.price, b.weight, b.des_url, COUNT(*) AS nrqtd, SUM(b.price) AS vltotal 
+			FROM tb_carts_products a 
+			INNER JOIN tb_products b ON a.id_product = b.id_product 
+			WHERE a.id_cart = :id_cart AND a.dt_removed IS NULL 
+			GROUP BY b.id_product, b.des_product , b.price, b.weight, b.des_url 
+			ORDER BY b.des_product
+		", [
+			':id_cart'=>$this->getid_cart()
+		]);
+
+		return Product::checkList($rows);
+
+	}
+
+
+
 }
 
 ?>

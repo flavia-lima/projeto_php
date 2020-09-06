@@ -179,9 +179,9 @@
                                     </h4>
                                 </div>  
                                 
-                                <div class="product-option-shop">
+                                <!--<div class="product-option-shop">
                                     <a style="font-size: 20px" class="add_to_cart_button text-success" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Comprar</a>
-                                </div>                       
+                                </div> -->                      
                             </div>
                         </div>
                         <?php } ?>

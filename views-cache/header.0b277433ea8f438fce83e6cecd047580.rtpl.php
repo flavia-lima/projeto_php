@@ -79,14 +79,14 @@
             <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">Produtos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">Carrinho</a>
+            <a class="nav-link waves-effect" href="/cart" target="_blank">Carrinho</a>
           </li>
         </ul>
 
         <!-- Right -->
         <ul class="navbar-nav nav-flex-icons">
           <li class="nav-item">
-            <a class="nav-link waves-effect">
+            <a class="nav-link waves-effect" href="/cart">
               <span class="badge red z-depth-1 mr-1"> 1 </span>
               <i class="fas fa-shopping-cart"></i>
               <span class="clearfix d-none d-sm-inline-block"> Carrinho </span>

@@ -3,6 +3,7 @@
 use \Flavia\Page;
 use \Flavia\Model\Product;
 use \Flavia\Model\Category;
+use \Flavia\Model\Cart;
 
 //Rota da Página raiz.
 $app->get('/', function() {
@@ -59,6 +60,17 @@ $app->get("/products/:des_url", function($des_url) {
 		'product'=>$product->getValues(),
 		'categories'=>$product->getCategories()
 	]);
+
+});
+
+//Carrinho.
+$app->get("/cart", function() {
+
+	$cart = Cart::getFromSession();
+
+	$page = new Page();
+
+	$page->setTpl("cart");
 
 });
 

@@ -16,6 +16,55 @@ class User extends Model{
 		"id_user", "id_person", "des_login", "des_password", "email", "phone", "cpf", "inadmin", "des_person"
 	];
 
+	//Pega o usuário da sessão.
+	public static function getFromSession()
+	{
+
+		$user = new User();
+
+		if (isset($_SESSION[User::SESSION]) && (int)$_SESSION[User::SESSION]['id_user'] > 0) {
+			
+			$user->setData($_SESSION[User::SESSION]);
+
+		}
+
+		return $user;
+
+	}
+
+	public static function checkLogin($inadmin = true)
+	{
+
+		if (!isset($_SESSION[User::SESSION])
+			||
+			!$_SESSION[User::SESSION]
+			||
+			!(int)$_SESSION[User::SESSION]["id_user"] > 0) {
+			
+			//O usuário não está logado.
+			return false;
+
+		} else { //Se ele estiver logado.
+
+			//Se o usuário acessar uma rota administrativa, ele deve ser um admin.
+			if ($inadmin === true && (bool)$_SESSION[User::SESSION]["inadmin"] === true) {
+				
+				return true; //Está logado e é um admin.
+
+			} else if($inadmin === false) { //Se for um usuário comum.
+
+				return true;
+
+			} else { 
+
+				return false; //Senão, ele não está logado. Retorna falso.
+
+			}
+
+		}
+
+	}
+
 	public static function login($login, $password)
 	{
 
@@ -49,20 +98,11 @@ class User extends Model{
 
 	}
 
-	//Usuário da administração
+	//Usuário da administração. Verifica o login do usuário da administração.
 	public function verifyLogin($inadmin = true)
 	{
 
-		if(
-			!isset($_SESSION[User::SESSION])
-			||
-			!$_SESSION[User::SESSION]
-			||
-			!(int)$_SESSION[User::SESSION]["id_user"] > 0
-			||
-			(bool)$_SESSION[User::SESSION]["inadmin"] !== $inadmin
-
-		){
+		if(User::checkLogin($inadmin)){
 
 			header("Location: /admin/login");
 			exit;

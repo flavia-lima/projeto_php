@@ -4,6 +4,7 @@ use \Flavia\PageAdmin;
 use \Flavia\Page;
 use \Flavia\Model\User;
 use \Flavia\Model\Category;
+use \Flavia\Model\Product;
 
 $app->get("/admin/categories", function() {
 
@@ -92,18 +93,62 @@ $app->post("/admin/categories/:id_category", function($id_category) {
 
 });
 
-$app->get("/categories/:id_category", function($id_category) {
+//Rota para acessar categorias-produtos.
+$app->get("/admin/categories/:id_category/products", function($id_category) {
+
+	User::verifyLogin();
 
 	$category = new Category();
 
 	$category->get((int)$id_category);
 
-	$page = new Page();
+	$page = new PageAdmin();
 
-	$page->setTpl("category", [
+	$page->setTpl("categories-products", [
 		'category'=>$category->getValues(),
-		'products'=>[]
+		'productsRelated'=>$category->getProducts(),
+		'productsNotRelated'=>$category->getProducts(false)
 	]);
+
+});
+
+//Rota para adicionar produtos na categoria atual.
+$app->get("/admin/categories/:id_category/products/:id_product/add", function($id_category, $id_product) {
+
+	User::verifyLogin();
+
+	$category = new Category();
+
+	$category->get((int)$id_category);
+
+	$product = new Product();
+
+	$product->get((int)$id_product);
+
+	$category->addProduct($product);
+
+	header("Location: /admin/categories/".$id_category."/products");
+	exit;
+
+});
+
+//Rota para remover produtos na categoria atual.
+$app->get("/admin/categories/:id_category/products/:id_product/remove", function($id_category, $id_product) {
+
+	User::verifyLogin();
+
+	$category = new Category();
+
+	$category->get((int)$id_category);
+
+	$product = new Product();
+
+	$product->get((int)$id_product);
+
+	$category->removeProduct($product);
+
+	header("Location: /admin/categories/".$id_category."/products");
+	exit;
 
 });
 

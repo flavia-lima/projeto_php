@@ -1,4 +1,4 @@
-<?php if(!class_exists('Rain\Tpl')){exit;}?><div style="margin-top: 150px;"></div>
+<?php if(!class_exists('Rain\Tpl')){exit;}?><div style="margin-top: 100px;"></div>
 
 <div class="product-big-title-area">
     <div class="container">
@@ -22,17 +22,17 @@
             <div class="col-md-3 col-sm-6">
                 <div class="single-shop-product">
                     <div class="product-upper">
-                        <img src="/resources/site/img/product-2.jpg" alt="">
+                        <img src="<?php echo htmlspecialchars( $value1["des_photo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" alt="">
                     </div>
-                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
+                    <h2><a class="text-secondary" href="/products/<?php echo htmlspecialchars( $value1["des_url"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="font-size: 25px"><?php echo htmlspecialchars( $value1["des_product"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></h2>
                     <div class="product-carousel-price">
-                        <h4 class="font-weight-bold blue-text">
-                            <strong>R$ 299, 99</strong>
+                        <h4 class="font-weight-bold purple-text">
+                            <strong>R$ <?php echo formatPrice($value1["price"]); ?></strong>
                         </h4>
                     </div>  
                     
                     <div class="product-option-shop">
-                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
+                        <a style="font-size: 20px" class="add_to_cart_button text-success" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Comprar</a>
                     </div>                       
                 </div>
             </div>
@@ -43,38 +43,16 @@
       <nav class="d-flex justify-content-center wow fadeIn">
         <ul class="pagination pg-blue">
 
-          <!--Arrow left-->
-          <li class="page-item disabled">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only">Previous</span>
-            </a>
-          </li>
 
-          <li class="page-item active">
-            <a class="page-link" href="#">1
+          <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
+          <li class="page-item">
+            <a class="page-link" href="<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+              <?php echo htmlspecialchars( $value1["page"], ENT_COMPAT, 'UTF-8', FALSE ); ?>
               <span class="sr-only">(current)</span>
             </a>
           </li>
-          <li class="page-item">
-            <a class="page-link" href="#">2</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">3</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">4</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">5</a>
-          </li>
+          <?php } ?>
 
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
         </ul>
       </nav>
       <!--Pagination-->

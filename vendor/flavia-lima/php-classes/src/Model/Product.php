@@ -17,6 +17,22 @@ class Product extends Model{
 
 	}
 
+	//Verifica a listagem dos produtos.
+	public static function checkList($list)
+	{
+
+		foreach ($list as &$row) {
+			
+			$p = new Product();
+			$p->setData($row);
+			$row = $p->getValues();
+
+		}
+
+		return $list;
+
+	}
+
 	public function save()
 	{
 
@@ -54,8 +70,8 @@ class Product extends Model{
 
 		$sql = new Sql();
 
-		$sql->query("DELETE FROM tb_products WHERE id_product = :id_product", [
-			':id_product'=>$this->getid_product()
+		$sql->query("DELETE FROM tb_products WHERE id_product = :id_product;", [
+			":id_product"=>$this->getid_product()
 		]);
 
 	}
@@ -118,14 +134,14 @@ class Product extends Model{
 
 		}
 
-		$dest = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 
+		$dist = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 
 			"resources" . DIRECTORY_SEPARATOR . 
 			"site" . DIRECTORY_SEPARATOR . 
 			"img" . DIRECTORY_SEPARATOR . 
 			"products" . DIRECTORY_SEPARATOR . 
 			$this->getid_product() . ".jpg";
 
-		imagejpeg($image, $dest);
+		imagejpeg($image, $dist);
 
 		imagedestroy($image);
 

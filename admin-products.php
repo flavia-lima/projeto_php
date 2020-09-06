@@ -71,7 +71,7 @@ $app->post("/admin/products/:id_product", function($id_product) {
 
 	$product->save();
 
-	$product->setPhoto($_FILES["file"]); //Faz o upload do arquivo.
+	if($_FILES["file"]["name"] !== "") $product->setPhoto($_FILES["file"]); //Faz o upload do arquivo.
 
 	header('Location: /admin/products');
 	exit;

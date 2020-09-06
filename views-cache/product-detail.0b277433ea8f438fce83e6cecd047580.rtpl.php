@@ -1,4 +1,4 @@
-<div style="margin-top: 100px;"></div>
+<?php if(!class_exists('Rain\Tpl')){exit;}?><div style="margin-top: 100px;"></div>
 
 <div class="product-big-title-area">
     <div class="container">
@@ -19,7 +19,7 @@
                 <div class="product-content-right">
                     <div class="product-breadcroumb"> <br/><br/>
                         <a href="/">Home</a><br/>
-                        <a href="">{$product.des_product}</a><br/>
+                        <a href=""><?php echo htmlspecialchars( $product["des_product"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a><br/>
                     </div>
                     
                     <br/>
@@ -27,16 +27,16 @@
                         <div class="col-sm-6">
                             <div class="product-images">
                                 <div class="product-main-img">
-                                    <img src="{$product.des_photo}">
+                                    <img src="<?php echo htmlspecialchars( $product["des_photo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
                                 </div>
                             </div>
                         </div>
                         
                         <div class="col-sm-6">
                             <div class="product-inner">
-                                <h2 class="product-name">{$product.des_product}</h2><br/>
+                                <h2 class="product-name"><?php echo htmlspecialchars( $product["des_product"], ENT_COMPAT, 'UTF-8', FALSE ); ?></h2><br/>
                                 <div class="product-inner-price font-weight-bold purple-text">
-                                    <ins>R$ {function="formatPrice($product.price)"}</ins>
+                                    <ins>R$ <?php echo formatPrice($product["price"]); ?></ins>
                                 </div>    
                                 
                                 <form action="" class="cart">
@@ -47,7 +47,7 @@
                                 </form>   
                                 
                                 <div class="product-inner-category text-secondary" style="font-size: 15px">
-                                    <p>Categorias:{loop="$categories"} <a href="/categories/{$value.id_category}">{$value.des_category}</a>{/loop}.
+                                    <p>Categorias:<?php $counter1=-1;  if( isset($categories) && ( is_array($categories) || $categories instanceof Traversable ) && sizeof($categories) ) foreach( $categories as $key1 => $value1 ){ $counter1++; ?> <a href="/categories/<?php echo htmlspecialchars( $value1["id_category"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["des_category"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a><?php } ?>.
                                 </div>  
 
                                 <!-- Collapse buttons -->

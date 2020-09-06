@@ -149,6 +149,34 @@ class Product extends Model{
 
 	}
 
+	//Leva para os detalhes do produto.
+	public function getFromURL($des_url)
+	{
+
+		$sql = new Sql();
+
+		$rows = $sql->select("SELECT * FROM tb_products WHERE des_url = :des_url LIMIT 1", [
+			':des_url'=>$des_url
+		]);
+
+		$this->setData($rows[0]);
+
+	}
+
+	//Pega a categoria do produto para exibí-la nos detalhes.
+	public function getCategories()
+	{
+
+		$sql = new Sql();
+
+		return $sql->select("SELECT * FROM tb_categories a INNER JOIN tb_products_categories b ON a.id_category = b.id_category 
+			WHERE b.id_product = :id_product
+		", [
+			':id_product'=>$this->getid_product()
+		]);
+
+	}
+
 }
 
 ?>

@@ -79,7 +79,7 @@
             <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">Produtos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link waves-effect" href="/cart" target="_blank">Carrinho</a>
+            <a class="nav-link waves-effect" href="/cart" target="_self">Carrinho</a>
           </li>
         </ul>
 
@@ -95,20 +95,20 @@
 
           <?php if( checkLogin(false) ){ ?>
           <li class="nav-item">
-            <a href="/profile" class="nav-link waves-effect" target="_blank">
+            <a href="/profile" class="nav-link waves-effect" target="_self">
               <i class="fas fa-user"></i>
               <span class="clearfix d-none d-sm-inline-block"> <?php echo getUserName(); ?> </span>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/logout" class="nav-link waves-effect" target="_blank">
+            <a href="/logout" class="nav-link waves-effect" target="_self">
               <i class="fas fa-door-open"></i>
               <span class="clearfix d-none d-sm-inline-block"> Sair </span>
             </a>
           </li>
           <?php }else{ ?>
           <li class="nav-item">
-            <a href="/login" class="nav-link waves-effect" target="_blank">
+            <a href="/login" class="nav-link waves-effect" target="_self">
               <i class="fas fa-lock"></i>
               <span class="clearfix d-none d-sm-inline-block"> Login </span>
             </a>
@@ -116,7 +116,7 @@
           <?php } ?>
 
           <li class="nav-item">
-            <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
+            <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_self">
               <i class="fas fa-user"></i>
               <span class="clearfix d-none d-sm-inline-block"> Minha Conta </span>
             </a>

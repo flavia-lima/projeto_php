@@ -176,7 +176,7 @@ class User extends Model{
 
 	 		":des_person"=>utf8_decode($this->getdes_person()),
 	 		":des_login"=>$this->getdes_login(),
-	 		":des_password"=>$this->getdes_password(),
+	 		":des_password"=>User::getPasswordHash($this->getdes_password()),
 	 		/*":des_password" => password_hash($this->getdes_password (), PASSWORD_DEFAULT, ['cont' => 12]),*/
 	 		":email"=>$this->getemail(),
 	 		":phone"=>$this->getphone(),
@@ -210,7 +210,7 @@ class User extends Model{
 	 		":id_user"=>$this->getid_user(),
 	 		":des_person"=>utf8_decode($this->getdes_person()),
 	 		":des_login"=>$this->getdes_login(),
-	 		":des_password"=>$this->getdes_password(),
+	 		":des_password"=>User::getPasswordHash($this->getdes_password()),
 	 		":email"=>$this->getemail(),
 	 		":phone"=>$this->getphone(),
 	 		":cpf"=>$this->getcpf(),
@@ -426,14 +426,14 @@ class User extends Model{
 
 	}
 
-	// public static function getPasswordHash($password)
-	// {
+	public static function getPasswordHash($password)
+	{
 
-	// 	return password_hash($password, PASSWORD_DEFAULT, [
-	// 		'cost'=>12
-	// 	]);
+		return password_hash($password, PASSWORD_DEFAULT, [
+			'cost'=>12
+		]);
 
-	// }
+	}
 
 
 }

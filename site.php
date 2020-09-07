@@ -172,7 +172,9 @@ $app->get("/login", function() {
 	$page = new Page();
 
 	$page->setTpl("login", [
-		'error'=>User::getError()
+		'error'=>User::getError(),
+		'errorRegister'=>User::getErrorRegister(),
+		'registerValues'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['name'=>'', 'email'=>'', 'phone'=>'', 'cpf'=>'']
 	]);
 
 });
@@ -199,6 +201,64 @@ $app->get("/logout", function() {
 	User::logout();
 
 	header("Location: /login");
+	exit;
+
+});
+
+//Cadastro de usuário comum a partir do site.
+$app->post("/register", function() {
+
+	$_SESSION['registerValues'] = $_POST; //Para não perder os dados que já foram preenchidos.
+
+	if (!isset($_POST['name']) || $_POST['name'] == '') {
+		
+		User::setErrorRegister("Preencha o seu nome.");
+		header("Location: /login");
+		exit;
+
+	}
+
+	if (!isset($_POST['email']) || $_POST['email'] == '') {
+		
+		User::setErrorRegister("Preencha o seu e-mail.");
+		header("Location: /login");
+		exit;
+
+	}
+
+	if (!isset($_POST['password']) || $_POST['password'] == '') {
+		
+		User::setErrorRegister("Preencha a senha.");
+		header("Location: /login");
+		exit;
+
+	}
+
+	if (User::checkLoginExist($_POST['email']) === true) {
+		
+		User::setErrorRegister("Endereço de e-mail já cadastrado por outro usuário.");
+		header("Location: /login");
+		exit;
+
+	}
+
+	$user = new User();
+
+	$user->setData([
+		'inadmin'=>0,
+		'des_login'=>$_POST['email'],
+		'des_person'=>$_POST['name'],
+		'email'=>$_POST['email'],
+		'phone'=>(int)$_POST['phone'],
+		'des_password'=>$_POST['password'],
+		'cpf'=>(int)$_POST['email']
+	]);
+
+	$user->save();
+
+	User::login($_POST['email'], $_POST['password']);
+
+	header("Location: /checkout");
 	exit;
 
 });

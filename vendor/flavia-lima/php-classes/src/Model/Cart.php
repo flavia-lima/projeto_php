@@ -10,6 +10,7 @@ use \Flavia\Model\User;
 class Cart extends Model{
 
 	const SESSION = "Cart";
+	const SESSION_ERROR = "CartError";
 
 	//Pega o carrinho que está na sessão.
 	public static function getFromSession()
@@ -125,7 +126,7 @@ class Cart extends Model{
 			':id_product'=>$product->getid_product()
 		]);
 
-		//$this->getCalculateTotal();
+		$this->getCalculateTotal();
 
 	}
 
@@ -151,7 +152,7 @@ class Cart extends Model{
 
 		}
 
-		//$this->getCalculateTotal();
+		$this->getCalculateTotal();
 
 	}
 
@@ -177,6 +178,170 @@ class Cart extends Model{
 	}
 
 
+	public function getProductsTotals()
+	{
+
+		$sql = new Sql();
+
+		$results = $sql->select("
+			SELECT SUM(price) AS price,  SUM(weight) AS weight, COUNT(*) AS nrqtd
+			FROM tb_products a 
+			INNER JOIN tb_carts_products b ON a.id_product = b.id_product
+			WHERE b.id_cart = :id_cart AND dt_removed IS NULL;
+			", [
+				':id_cart'=>$this->getid_cart()
+			]);
+
+		if (count($results) > 0) {
+			return $results[0];
+		} else {
+			return [];
+		}
+
+	}
+
+	public function setFreight($nrzipcode)
+	{
+
+		$nrzipcode = str_replace('-', '', $nrzipcode); //Substitui o "-" do CEP.
+
+		$totals = $this->getProductsTotals();
+
+		//Verifica se há produtos no carrinho.
+		if ($totals['nrqtd'] > 0) {
+
+			$qs = http_build_query([
+				'nCdEmpresa'=>'',
+				'sDsSenha'=>'',
+				'nCdServico'=>'40010', //SEDEX Varejo.
+				'sCepOrigem'=>'01311000', //Av Paulista.
+				'sCepDestino'=>$nrzipcode,
+				'nVlPeso'=>$totals['weight'],
+				'nCdFormato'=>'1', //Caixa ou pacote.
+				'nVlComprimento'=>'16', //Deixei um valor padrão porque não tenho essas informações no BD.
+				'nVlAltura'=>'10', //Deixei um valor padrão porque não tenho essas informações no BD.
+				'nVlLargura'=>'10', //Deixei um valor padrão porque não tenho essas informações no BD.
+				'nVlDiametro'=>'0',
+				'sCdMaoPropria'=>'S',
+				'nVlValorDeclarado'=>$totals['price'],
+				'sCdAvisoRecebimento'=>'S'
+			]);
+
+			//Leitura do XML do WebService do Correios.
+			$xml = simplexml_load_file("http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?".$qs);
+
+			$result = $xml->Servicos->cServico;
+
+			//Caso retorne uma mensagem de erro.
+			if ($result->MsgError != '') {
+				 
+				Cart::setMsgError($result->MsgError);
+
+			} else {
+
+				Cart::clearMsgError();
+
+			}
+
+			$this->setnr_days($result->PrazoEntrega);
+			$this->setvl_freight(Cart::formatValueToDecimal($result->Valor));
+			$this->setdes_zipcode($nrzipcode);
+
+			$this->save();
+
+			return $result;
+
+		} else {
+
+			$this->setnr_days(0);
+            $this->setvl_freight(0,00);
+            $this->setdes_zipcode($nrzipcode);
+ 
+            $this->save();
+
+		}
+
+	}
+
+	//Substituindo "," por "." pra salvar corretamente no banco.
+	public static function formatValueToDecimal($value):float
+	{
+
+		$value = str_replace('.', '', $value);
+		return str_replace(',', '.', $value);
+
+	} 
+
+	public static function setMsgError($msg)
+	{
+
+		$_SESSION[Cart::SESSION_ERROR] = $msg;
+
+	}
+
+	public static function getMsgError()
+	{
+
+		$msg = (isset($_SESSION[Cart::SESSION_ERROR])) ? $_SESSION[Cart::SESSION_ERROR] : "";
+
+		Cart::clearMsgError();
+
+		return $msg;
+
+	}
+
+	public static function clearMsgError()
+	{
+
+		$_SESSION[Cart::SESSION_ERROR] = NULL;
+
+	}
+
+	public function updateFreight()
+	{
+
+		if ($this->getdes_zipcode() != '') {
+			
+			$this->setFreight($this->getdes_zipcode());
+
+		}
+
+	}
+
+	public function getValues()
+	{
+
+		$this->getCalculateTotal();
+
+		return parent::getValues();
+
+	}
+
+	public function getCalculateTotal()
+	{
+
+		$this->updateFreight();
+
+		$totals = $this->getProductsTotals();
+
+		$this->setvl_subtotal($totals['price']);
+		$this->setvl_total($totals['price'] + $this->getvl_freight());
+
+		if ((int)$totals['nrqtd'] > 0){
+
+	        $this->setvl_subtotal($totals['price']);
+	        $this->setvl_total($totals['price'] + $this->getvl_freight());
+
+    	} else {
+
+	        $this->setvl_subtotal(0);
+	        $this->setvl_total(0);
+	        $this->setnr_days(0);
+
+	        return Cart::setMsgError("Carrinho de Compra não possui itens!");
+    }
+
+	}
 
 }
 

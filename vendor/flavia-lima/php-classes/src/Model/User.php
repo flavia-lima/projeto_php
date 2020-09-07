@@ -11,6 +11,9 @@ class User extends Model{
 	const SESSION ="User";
 	const SECRET ="Flavia_GeekStore"; //Chave de criptografia.
 	const SECRET_IV = "Flavia_GeekStore_Secret_IV";
+	const ERROR = "UserError";
+	const ERROR_REGISTER = "UserErrorRegister";
+	const SUCCESS = "UserSucesss";
 
 	protected $fields = [
 		"id_user", "id_person", "des_login", "des_password", "email", "phone", "cpf", "inadmin", "des_person"
@@ -51,7 +54,7 @@ class User extends Model{
 				
 				return true; //Está logado e é um admin.
 
-			} else if($inadmin === false) { //Se for um usuário comum.
+			} else if ($inadmin === false) { //Se for um usuário comum.
 
 				return true;
 
@@ -70,8 +73,12 @@ class User extends Model{
 
 		$sql = new Sql();
 
-		$results = $sql->select("SELECT * FROM tb_users WHERE des_login = :LOGIN", array(
-				":LOGIN"=>$login
+		// $results = $sql->select("SELECT * FROM tb_users WHERE des_login = :LOGIN", array(
+		// 		":LOGIN"=>$login
+		// ));
+
+		$results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b ON a.id_person = b.id_person WHERE a.des_login = :LOGIN", array(
+			":LOGIN"=>$login
 		));
 
 		if (count($results) === 0) {
@@ -84,6 +91,8 @@ class User extends Model{
 		if (password_verify($password, $data["des_password"]) === true) {
 
 			$user = new User();
+
+			$data['des_person'] = utf8_encode($data['des_person']);
 
 			//Traz o array inteiro
 			$user->setData($data);
@@ -102,9 +111,13 @@ class User extends Model{
 	public function verifyLogin($inadmin = true)
 	{
 
-		if(User::checkLogin($inadmin)){
+		if(!User::checkLogin($inadmin)){
 
-			header("Location: /admin/login");
+			if($inadmin) {
+				header("Location: /admin/login");
+			} else {
+				header("Location: /login");
+			}
 			exit;
 
 		}
@@ -138,6 +151,8 @@ class User extends Model{
 		));
 		 
 		$data = $results[0];
+
+		$data['des_person'] = utf8_encode($data['des_person']);	
 		 
 		$this->setData($data);
  
@@ -159,7 +174,7 @@ class User extends Model{
 
 	 	$results = $sql->select("CALL sp_users_save(:des_person, :des_login, :des_password, :email, :phone, :cpf, :inadmin)", array(
 
-	 		":des_person"=>$this->getdes_person(),
+	 		":des_person"=>utf8_decode($this->getdes_person()),
 	 		":des_login"=>$this->getdes_login(),
 	 		":des_password"=>$this->getdes_password(),
 	 		/*":des_password" => password_hash($this->getdes_password (), PASSWORD_DEFAULT, ['cont' => 12]),*/
@@ -173,18 +188,18 @@ class User extends Model{
 
 	}
 
-	/*public function get($id_user)
-	{
+	// public function get($id_user)
+	// {
 
-	 	$sql = new Sql();
+	//  	$sql = new Sql();
 
-	 	$results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING(id_person) WHERE a.id_user = :id_user", array(
-	 			":id_user"=>$id_user
-	 	));
+	//  	$results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING(id_person) WHERE a.id_user = :id_user", array(
+	//  			":id_user"=>$id_user
+	//  	));
 
-	 	$this->setData($results[0]);
+	//  	$this->setData($results[0]);
 
-	}*/
+	// }
 
 	public function update()
 	{
@@ -193,7 +208,7 @@ class User extends Model{
 
 	 	$results = $sql->select("CALL sp_usersupdate_save(:id_user, :des_person, :des_login, :des_password, :email, :phone, :cpf, :inadmin)", array(
 	 		":id_user"=>$this->getid_user(),
-	 		":des_person"=>$this->getdes_person(),
+	 		":des_person"=>utf8_decode($this->getdes_person()),
 	 		":des_login"=>$this->getdes_login(),
 	 		":des_password"=>$this->getdes_password(),
 	 		":email"=>$this->getemail(),
@@ -206,14 +221,25 @@ class User extends Model{
 
 	}
 
+	// public function delete()
+	// {
+
+	// 	$sql = new Sql();
+
+	// 	$sql->query("CALL sp_products_delete(:id_product)", [
+ //        ':id_product'=>$this->getid_product()
+ //    	]);
+
+	// }
+
 	public function delete()
 	{
 
 		$sql = new Sql();
 
-		$sql->query("CALL sp_products_delete(:id_product)", [
-        ':id_product'=>$this->getid_product()
-    	]);
+		$sql->query("CALL sp_users_delete(:id_user)", array(
+			":id_user"=>$this->getid_user()
+		));
 
 	}
 
@@ -336,6 +362,79 @@ class User extends Model{
 		));
 
 	}
+
+	public static function setError($msg)
+	{
+
+		$_SESSION[User::ERROR] = $msg;
+
+	}
+
+	public static function getError()
+	{
+
+		$msg = (isset($_SESSION[User::ERROR]) && $_SESSION[User::ERROR]) ? $_SESSION[User::ERROR] : '';
+
+		User::clearError();
+
+		return $msg;
+
+	}
+
+	public static function clearError()
+	{
+
+		$_SESSION[User::ERROR] = NULL;
+
+	}
+
+	public static function setErrorRegister($msg)
+	{
+
+		$_SESSION[User::ERROR_REGISTER] = $msg;
+
+	}
+
+	public static function getErrorRegister()
+	{
+
+		$msg = (isset($_SESSION[User::ERROR_REGISTER]) && $_SESSION[User::ERROR_REGISTER]) ? $_SESSION[User::ERROR_REGISTER] : '';
+
+		User::clearErrorRegister();
+
+		return $msg;
+
+	}
+
+	public static function clearErrorRegister()
+	{
+
+		$_SESSION[User::ERROR_REGISTER] = NULL;
+
+	}
+
+	public static function checkLoginExist($login)
+	{
+
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT * FROM tb_users WHERE des_login = :des_login", [
+			':des_login'=>$login
+		]);
+
+		return (count($results) > 0);
+
+	}
+
+	// public static function getPasswordHash($password)
+	// {
+
+	// 	return password_hash($password, PASSWORD_DEFAULT, [
+	// 		'cost'=>12
+	// 	]);
+
+	// }
+
 
 }
 //$2y$12$hKaYkmysAUxuw4gYLdTL3eyB7eVzwt4.mK4gGCQUYMD0X/YNzINrG

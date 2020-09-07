@@ -92,12 +92,29 @@
               <span class="clearfix d-none d-sm-inline-block"> Carrinho </span>
             </a>
           </li>
+
+          {if="checkLogin(false)"}
           <li class="nav-item">
-            <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
+            <a href="/profile" class="nav-link waves-effect" target="_blank">
+              <i class="fas fa-user"></i>
+              <span class="clearfix d-none d-sm-inline-block"> {function="getUserName()"} </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/logout" class="nav-link waves-effect" target="_blank">
+              <i class="fas fa-door-open"></i>
+              <span class="clearfix d-none d-sm-inline-block"> Sair </span>
+            </a>
+          </li>
+          {else}
+          <li class="nav-item">
+            <a href="/login" class="nav-link waves-effect" target="_blank">
               <i class="fas fa-lock"></i>
               <span class="clearfix d-none d-sm-inline-block"> Login </span>
             </a>
           </li>
+          {/if}
+
           <li class="nav-item">
             <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
               <i class="fas fa-user"></i>

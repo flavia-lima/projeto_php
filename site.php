@@ -335,4 +335,67 @@ $app->post("/forgot/reset", function() {
 
 });
 
+//Minha conta.
+$app->get("/profile", function() {
+
+	User::verifyLogin(false); //False significa que é um usuário comum.
+
+	$user = User::getFromSession();
+
+	$page = new Page();
+
+	$page->setTpl("profile", [
+		'user'=>$user->getValues(),
+		'profileMsg'=>$user->getSuccess(),
+		'profileError'=>$user->getError()
+	]);
+
+});
+
+$app->post("/profile", function() {
+
+	User::verifyLogin(false); //False significa que é um usuário comum.
+
+	if (!isset($_POST['des_person']) || $_POST['des_person'] === '') {
+		User::setError("Preencha seu nome.");
+		header("Location: /profile");
+		exit;
+	}
+
+	if (!isset($_POST['email']) || $_POST['email'] === '') {
+		User::setError("Preencha seu e-mail.");
+		header("Location: /profile");
+		exit;
+	}
+
+	$user = User::getFromSession();
+
+	//Se o usuário alterou o e-mail.
+	if ($_POST['email'] !== $user->getemail()) {
+		
+		if (User::checkLoginExist($_POST['email']) === true) {
+			
+			User::setError("Este endereço de e-mail já está cadastrado.");
+			header("Location: /profile");
+			exit;
+
+		}
+
+	}
+
+	$_POST['inadmin'] = $user->getinadmin(); //Pega o nível cadastrado no banco.
+	$_POST['des_password'] = $user->getdes_password(); //Pega a senha cadastrada no banco.
+	$_POST['des_login'] = $_POST['email']; //O login é o próprio e-mail
+
+	$user->setData($_POST);
+
+	$user->save();
+
+	User::setSuccess("Informações alteradas com sucesso!");
+
+	header("Location: /profile");
+	exit;
+
+});
+
 ?>

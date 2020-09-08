@@ -116,7 +116,7 @@
           <?php } ?>
 
           <li class="nav-item">
-            <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_self">
+            <a href="/profile" class="nav-link waves-effect" target="_self">
               <i class="fas fa-user"></i>
               <span class="clearfix d-none d-sm-inline-block"> Minha Conta </span>
             </a>

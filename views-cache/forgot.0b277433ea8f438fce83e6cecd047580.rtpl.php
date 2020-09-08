@@ -1,4 +1,6 @@
-<?php if(!class_exists('Rain\Tpl')){exit;}?><div class="product-big-title-area">
+<?php if(!class_exists('Rain\Tpl')){exit;}?><div style="margin-top: 100px;"></div>
+
+<div class="product-big-title-area">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -21,7 +23,7 @@
                     <?php echo htmlspecialchars( $errorRegister, ENT_COMPAT, 'UTF-8', FALSE ); ?>
                 </div>
                 <?php } ?>
-                
+
                 <form id="login-form-wrap" class="login" method="post" action="/forgot">
                     <h2>Recuperar senha</h2>
                     <p class="form-row form-row-first">

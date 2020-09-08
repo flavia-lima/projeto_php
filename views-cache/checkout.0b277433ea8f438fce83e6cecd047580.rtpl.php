@@ -1,4 +1,5 @@
-<?php if(!class_exists('Rain\Tpl')){exit;}?>
+<?php if(!class_exists('Rain\Tpl')){exit;}?><div style="margin-top: 100px;"></div>
+
 <div class="product-big-title-area">
 	<div class="container">
 		<div class="row">

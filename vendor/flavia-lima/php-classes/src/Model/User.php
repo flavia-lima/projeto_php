@@ -13,7 +13,7 @@ class User extends Model{
 	const SECRET_IV = "Flavia_GeekStore_Secret_IV";
 	const ERROR = "UserError";
 	const ERROR_REGISTER = "UserErrorRegister";
-	const SUCCESS = "UserSucesss";
+	const SUCCESS = "UserSuccess";
 
 	protected $fields = [
 		"id_user", "id_person", "des_login", "des_password", "email", "phone", "cpf", "inadmin", "des_person"
@@ -394,6 +394,31 @@ class User extends Model{
 	{
 
 		$_SESSION[User::ERROR] = NULL;
+
+	}
+
+	public static function setSuccess($msg)
+	{
+
+		$_SESSION[User::SUCCESS] = $msg;
+
+	}
+
+	public static function getSuccess()
+	{
+
+		$msg = (isset($_SESSION[User::SUCCESS]) && $_SESSION[User::SUCCESS]) ? $_SESSION[User::SUCCESS] : '';
+
+		User::clearSuccess();
+
+		return $msg;
+
+	}
+
+	public static function clearSuccess()
+	{
+
+		$_SESSION[User::SUCCESS] = NULL;
 
 	}
 

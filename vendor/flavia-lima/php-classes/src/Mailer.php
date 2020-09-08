@@ -81,7 +81,7 @@ class Mailer {
 
 		//Read an HTML message body from an external file, convert referenced images to embedded,
 		//convert HTML into a basic plain-text alternative body
-		$this->mail->msgHTML($html); //HTML renderizado com o Rain Tpl.
+		$this->mail->msgHTML(utf8_decode($html)); //HTML renderizado com o Rain Tpl.
 
 		//Replace the plain text body with one created manually
 		$this->mail->AltBody = 'This is a plain-text message body';

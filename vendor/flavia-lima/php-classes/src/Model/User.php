@@ -243,7 +243,7 @@ class User extends Model{
 
 	}
 
-	public static function getForgot($email)
+	public static function getForgot($email, $inadmin = true)
 	{
 
 		$sql =new Sql();
@@ -286,7 +286,16 @@ class User extends Model{
 
 				$code = base64_encode($code);
 
-				$link = "http://www.projetophp.com.br/admin/forgot/reset?code=$code";
+				if ($inadmin === true) {
+					
+					$link = "http://www.projetophp.com.br/admin/forgot/reset?code=$code"; //Recuperação de senha para admin.
+
+				} else {
+
+					$link = "http://www.projetophp.com.br/forgot/reset?code=$code"; //Recuperação de senha para usuário comum.
+
+				}
+
 
 				$mailer = new Mailer($data['email'], $data['des_person'], "Redefinir senha da Geek Store", "forgot", array(
 					"name"=>$data['des_person'],

@@ -87,11 +87,11 @@ $app->post("/admin/users/create", function () {
 
  	$_POST["inadmin"] = (isset($_POST["inadmin"])) ? 1 : 0;
 
- 	$_POST['des_password'] = password_hash($_POST["des_password"], PASSWORD_DEFAULT, [
+ 	// $_POST['des_password'] = password_hash($_POST["des_password"], PASSWORD_DEFAULT, [
 
- 		"cost"=>12
+ 	// 	"cost"=>12
 
- 	]);
+ 	// ]);
 
  	$user->setData($_POST);
 

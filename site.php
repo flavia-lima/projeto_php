@@ -6,6 +6,8 @@ use \Flavia\Model\Category;
 use \Flavia\Model\Cart;
 use \Flavia\Model\Address;
 use \Flavia\Model\User;
+use \Flavia\Model\Order;
+use \Flavia\Model\OrderStatus;
 
 //Rota da Página raiz.
 $app->get('/', function() {
@@ -267,7 +269,24 @@ $app->post("/checkout", function() {
 
 	$address->save();
 
-	header("Location: /order");
+	$cart = Cart::getFromSession();
+
+	$totals = $cart->getCalculateTotal();
+
+	$order = new Order();
+
+	$order->setData([
+		'id_cart'=>$cart->getid_cart(),
+		'id_address'=>$address->getid_address(),
+		'id_user'=>$user->getid_user(),
+		'id_status'=>OrderStatus::EM_ABERTO,
+		// 'vl_total'=>$cart->getvl_total()
+		'vl_total'=>$totals['price'] + $cart->getvl_freight()
+	]);
+
+	$order->save();
+
+	header("Location: /order/".$order->getid_order());
 	exit;
 
 });
@@ -501,6 +520,27 @@ $app->post("/profile", function() {
 
 	header("Location: /profile");
 	exit;
+
+});
+
+$app->get("/order/:id_order", function($id_order) {
+
+	User::verifyLogin(false);
+
+	$order = new Order();
+
+	$order->get((int)$id_order);
+
+	$page = new Page();
+
+	$page->setTpl("payment", [
+		// 'order'=>getValues()
+		'order'=>$order->getValues()
+	]);
+
+});
+
+$app->get("/boleto/:id_order", function($id_order) {
 
 });
 

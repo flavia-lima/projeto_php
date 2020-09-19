@@ -82,21 +82,22 @@
 
                                 <div class="cross-sells">
 
-                                    <h2>Cálculo de Frete</h2>
+                                    <p class="h4 mb-4">Cálculo do frete</p>
                                     
                                     <div class="coupon">
                                         <label for="cep">CEP:</label>
-                                        <input type="text" placeholder="00000-000" value="<?php echo htmlspecialchars( $cart["des_zipcode"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" id="cep" class="input-text" name="zipcode">
-                                        <input type="submit" formmethod="post" formaction="/cart/freight" value="Calcular" class="button">
+                                        <input type="text" placeholder="00000-000" value="<?php echo htmlspecialchars( $cart["des_zipcode"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" id="cep" class="input-text form-control mb-2" name="zipcode">
+                                        <input type="submit" formmethod="post" formaction="/cart/freight" value="Calcular" class="btn btn-primary">
                                     </div>
 
                                 </div>
 
+                                <br/><br/><br/>
                                 <div class="cart_totals ">
 
-                                    <h2>Resumo da Compra</h2>
+                                    <p class="h4 mb-4">Resumo da compra</p>
 
-                                    <table cellspacing="0">
+                                    <table cellspacing="0" class="table table-striped">
                                         <tbody>
                                             <tr class="cart-subtotal">
                                                 <th>Subtotal</th>
@@ -125,7 +126,7 @@
                             </div>
 
                             <div class="pull-right">
-                                <input type="submit" value="Finalizar Compra" name="proceed" class="checkout-button button alt wc-forward">
+                                <input type="submit" value="Finalizar Compra" name="proceed" class="checkout-button button alt wc-forward btn btn-primary">
                             </div>
 
                         </form><br/><br/><br/>

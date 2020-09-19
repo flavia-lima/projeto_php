@@ -76,9 +76,6 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">Produtos</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link waves-effect" href="/cart" target="_self">Carrinho</a>
           </li>
         </ul>
@@ -96,7 +93,7 @@
           <?php if( checkLogin(false) ){ ?>
           <li class="nav-item">
             <a href="/profile" class="nav-link waves-effect" target="_self">
-              <i class="fas fa-user"></i>
+              <i class="fas fa-user-astronaut"></i>
               <span class="clearfix d-none d-sm-inline-block"> <?php echo getUserName(); ?> </span>
             </a>
           </li>

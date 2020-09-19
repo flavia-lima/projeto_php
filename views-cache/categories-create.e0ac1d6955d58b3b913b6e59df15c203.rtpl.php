@@ -1,7 +1,7 @@
 <?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
-<section class="content-header">
+<!-- <section class="content-header">
   <h1>
     Lista de Categorias
   </h1>
@@ -10,7 +10,7 @@
     <li><a href="/admin/categories">Categorias</a></li>
     <li class="active"><a href="/admin/categories/create">Cadastrar</a></li>
   </ol>
-</section>
+</section> -->
 
 <!-- Main content -->
 <section class="content">

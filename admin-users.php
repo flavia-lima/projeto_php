@@ -3,7 +3,7 @@
 use \Flavia\PageAdmin;
 use \Flavia\Model\User;
 
-//Rota para listar usuários
+//Rota para listar usuários.
 $app->get("/admin/users", function() {
 
 	User::verifyLogin();
@@ -20,6 +20,7 @@ $app->get("/admin/users", function() {
 
 });
 
+//Rota para a criação de um novo usuário na área administrativa.
 $app->get("/admin/users/create", function() {
 
 	User::verifyLogin();
@@ -30,6 +31,7 @@ $app->get("/admin/users/create", function() {
 
 });
 
+//Rota para a remoção de um usuário.
 $app->get("/admin/users/:id_user/delete", function($id_user) {
 
 	User::verifyLogin();

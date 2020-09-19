@@ -41,7 +41,7 @@
       <!--Caption-->
       <div class="carousel-caption">
         <div class="animated fadeInDown">
-          <h3 class="h3-responsive">Conteúdos esclusivos!</h3>
+          <h3 class="h3-responsive">Conteúdos exclusivos!</h3>
           <p>Complete sua coleção com os itens mais desejados.</p>
         </div>
       </div>
@@ -105,29 +105,29 @@
           <!-- Links -->
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#">Games</a>
+              <a class="nav-link" href="/categories/3">Games</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Consoles</a>
+              <a class="nav-link" href="/categories/4">Consoles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Colecionáveis</a>
+              <a class="nav-link" href="/categories/5">Colecionáveis</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Roupas</a>
+              <a class="nav-link" href="/categories/6">Roupas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Acessórios</a>
+              <a class="nav-link" href="/categories/7">Acessórios</a>
             </li>
 
           </ul>
           <!-- Links -->
 
-          <form class="form-inline">
+          <!-- <form class="form-inline">
             <div class="md-form my-0">
-              <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search">
+              <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Buscar">
             </div>
-          </form>
+          </form> -->
         </div>
         <!-- Collapsible content -->
 
@@ -194,11 +194,11 @@
     </div> <!-- End main content area -->
 
       <!--Pagination-->
-      <nav class="d-flex justify-content-center wow fadeIn">
-        <ul class="pagination pg-blue">
+      <!-- <nav class="d-flex justify-content-center wow fadeIn">
+        <ul class="pagination pg-blue"> -->
 
           <!--Arrow left-->
-          <li class="page-item disabled">
+          <!-- <li class="page-item disabled">
             <a class="page-link" href="#" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
               <span class="sr-only">Previous</span>
@@ -230,10 +230,12 @@
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> -->
       <!--Pagination-->
 
     </div>
   </main>
   <!--Main layout-->
+
+  <br/><br/><br/>
 

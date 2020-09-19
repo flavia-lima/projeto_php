@@ -339,7 +339,7 @@ class Cart extends Model{
 	        $this->setnr_days(0);
 
 	        return Cart::setMsgError("Carrinho de Compra não possui itens!");
-    }
+    	}
 
 	}
 

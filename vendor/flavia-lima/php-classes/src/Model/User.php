@@ -82,7 +82,7 @@ class User extends Model{
 		));
 
 		if (count($results) === 0) {
-			throw new \Exception("Usuário ou senha inválida. oi");
+			throw new \Exception("Usuário e/ou senha inválida.");
 			
 		}
 

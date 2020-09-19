@@ -12,14 +12,23 @@ class Order extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select("CALL sp_orders_save(:id_order, :id_cart, :id_user, :id_status, :id_address, :vl_total)", [
+		// $results = $sql->select("CALL sp_orders_save(:id_order, :id_cart, :id_user, :id_status, :id_address, :vl_total)", [
+		// 	':id_order'=>$this->getid_order(),
+		// 	':id_cart'=>$this->getid_cart(),
+		// 	':id_user'=>$this->getid_user(),
+		// 	':id_status'=>$this->getid_status(),
+		// 	':id_address'=>$this->getid_address(),
+		// 	':vl_total'=>$this->getvl_total()
+		// ]);
+
+		$results = $sql->select("INSERT INTO tb_orders(id_order, id_cart, id_user, id_status, id_address, vl_total) VALUES (:id_order, :id_cart, :id_user, :id_status, :id_address, :vl_total)", array(
 			':id_order'=>$this->getid_order(),
 			':id_cart'=>$this->getid_cart(),
 			':id_user'=>$this->getid_user(),
 			':id_status'=>$this->getid_status(),
 			':id_address'=>$this->getid_address(),
 			':vl_total'=>$this->getvl_total()
-		]);
+		));
 
 		if (count($results) > 0) {
 			

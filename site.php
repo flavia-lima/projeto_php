@@ -22,6 +22,7 @@ $app->get('/', function() {
 
 });
 
+//Categorias do site.
 $app->get("/categories/:id_category", function($id_category) {
 
 	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
@@ -37,7 +38,7 @@ $app->get("/categories/:id_category", function($id_category) {
 	for ($i=1; $i <= $pagination['pages']; $i++) { 
 		array_push($pages, [
 			'link'=>'/categories/'.$category->getid_category().'?page='.$i,
-			'page'=>$i //num da pagina
+			'page'=>$i //número da página.
 		]);
 	}
 
@@ -197,6 +198,7 @@ $app->get("/checkout", function() {
 
 });
 
+//Rota para as informações e confirmação do pedido.
 $app->post("/checkout", function() {
 
 	User::verifyLogin(false);
@@ -280,8 +282,8 @@ $app->post("/checkout", function() {
 		'id_address'=>$address->getid_address(),
 		'id_user'=>$user->getid_user(),
 		'id_status'=>OrderStatus::EM_ABERTO,
-		// 'vl_total'=>$cart->getvl_total()
-		'vl_total'=>$totals['price'] + $cart->getvl_freight()
+		'vl_total'=>$cart->getvl_total()
+		// 'vl_total'=>$totals['price'] + $cart->getvl_freight()
 	]);
 
 	$order->save();
@@ -523,6 +525,7 @@ $app->post("/profile", function() {
 
 });
 
+//Rota para o pedido gerado.
 $app->get("/order/:id_order", function($id_order) {
 
 	User::verifyLogin(false);
@@ -540,7 +543,87 @@ $app->get("/order/:id_order", function($id_order) {
 
 });
 
+//Parei aqui.
 $app->get("/boleto/:id_order", function($id_order) {
+
+});
+
+$app->get("/profile/change-password", function() {
+
+	User::verifyLogin(false);
+
+	$page = new Page();
+
+	$page->setTpl("profile-change-password", [
+		'changePassError'=>User::getError(),
+		'changePassSuccess'=>User::getSuccess()
+	]);
+
+});
+
+//Usuário tem a possibilidade de alterar a senha em seu perfil.
+$app->post("/profile/change-password", function() {
+
+	User::verifyLogin(false);
+
+	if (!isset($_POST['current_pass']) || $_POST['current_pass'] === '') {
+		 
+		User::setError("Digite a senha atual.");
+		header("Location: /profile/change-password");
+		exit;
+
+	}
+
+	if (!isset($_POST['new_pass']) || $_POST['new_pass'] === '') {
+		 
+		User::setError("Digite a nova senha.");
+		header("Location: /profile/change-password");
+		exit;
+
+	}
+
+	if (!isset($_POST['new_pass_confirm']) || $_POST['new_pass_confirm'] === '') {
+		 
+		User::setError("Confirme a nova senha.");
+		header("Location: /profile/change-password");
+		exit;
+
+	}
+
+	if ($_POST['current_pass'] === $_POST['new_pass']) {
+		
+		User::setError("Digite uma senha diferente da atual.");
+		header("Location: /profile/change-password");
+		exit;
+
+	}
+
+	if ($_POST['new_pass'] != $_POST['new_pass_confirm']) {
+		
+		User::setError("A confirmação de senha deve ser igual à nova senha.");
+		header("Location: /profile/change-password");
+		exit;
+
+	}
+
+	$user = User::getFromSession();
+
+	if (!password_verify($_POST['current_pass'], $user->getdes_password())) {
+
+		User::setError("Senha inválida.");
+		header("Location: /profile/change-password");
+		exit;
+
+	}
+
+	$user->setdes_password($_POST['new_pass']);
+
+	$user->update();
+
+	User::setSuccess("Senha alterada com sucesso!");
+
+	header("Location: /profile/change-password");
+	exit;
 
 });
 

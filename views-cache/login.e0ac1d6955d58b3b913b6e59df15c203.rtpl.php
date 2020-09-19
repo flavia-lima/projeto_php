@@ -26,7 +26,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Área administrativa Geek Store</p>
 
       <form action="/admin/login" method="post">
         <div class="input-group mb-3">
@@ -62,7 +62,7 @@
         </div>
       </form>
 
-      <div class="social-auth-links text-center mb-3">
+      <!-- <div class="social-auth-links text-center mb-3">
         <p>- OR -</p>
         <a href="#" class="btn btn-block btn-primary">
           <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
@@ -70,15 +70,15 @@
         <a href="#" class="btn btn-block btn-danger">
           <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
         </a>
-      </div>
+      </div> -->
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="/admin/forgot">I forgot my password</a>
+        <a href="/admin/forgot">Esqueceu a senha?</a>
       </p>
-      <p class="mb-0">
+      <!-- <p class="mb-0">
         <a href="register.html" class="text-center">Register a new membership</a>
-      </p>
+      </p> -->
     </div>
     <!-- /.login-card-body -->
   </div>

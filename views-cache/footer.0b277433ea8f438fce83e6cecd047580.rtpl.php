@@ -85,10 +85,7 @@
         <h6 class="text-uppercase font-weight-bold">Links Úteis</h6>
         <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
         <p>
-          <a href="#!">Minha Conta</a>
-        </p>
-        <p>
-          <a href="#!">Sobre</a>
+          <a href="/profile">Minha Conta</a>
         </p>
 
       </div>

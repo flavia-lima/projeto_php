@@ -5,10 +5,10 @@
   <h1>
     Lista de Categorias
   </h1>
-  <ol class="breadcrumb">
+  <!-- <ol class="breadcrumb">
     <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="active"><a href="/admin/categories">Categorias</a></li>
-  </ol>
+  </ol> -->
 </section>
 
 <!-- Main content -->

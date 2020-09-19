@@ -14,6 +14,7 @@ $app->get('/admin', function() {
 
 });
 
+//Rota para o login.
 $app->get('/admin/login', function() {
     
 	$page = new PageAdmin([
@@ -32,6 +33,7 @@ $app->post('/admin/login', function() {
  	exit;
 });
 
+//Rota para o logout.
 $app->get('/admin/logout', function() {
 
 	User::logout();
@@ -41,6 +43,7 @@ $app->get('/admin/logout', function() {
 	
 }); 
 
+//Esqueceu a senha.
 $app->get("/admin/forgot", function() {
 
 	$page = new PageAdmin([
